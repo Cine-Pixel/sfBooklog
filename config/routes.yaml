@@ -1,3 +1,11 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+# index:
+#    path: /auth
+#    controller: App\Controller\MainController::index
+
+api_login_check:
+  path: /api/login_check
+
+# books:
+#     type      : rest
+#     resource  : App\Controller\BookController
+#     prefix    : api
