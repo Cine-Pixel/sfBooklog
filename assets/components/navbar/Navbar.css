@@ -1,0 +1,111 @@
+.navbar {
+    background-color: transparent;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    transition: background-color 0.4s ease-out;
+    z-index: 4;
+}
+
+.navbar-filled {
+    background-color: var(--primary);
+    /* transition: background-color 0.4s; */
+}
+
+.navbar .navbar-wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar__links {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.navbar__links a {
+    padding: 10px 20px;
+    font-size: 1.7rem;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar__links a:hover {
+    border-bottom: 2px solid #fff;
+}
+
+.navbar__logo {
+    color: #fff;
+    font-weight: 700;
+    font-size: 4.8rem;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.menu-btn {
+    display: none;
+}
+
+.profile-icon {
+    color: #fff;
+    font-size: 2.5rem;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.profile-icon:hover {
+    color: var(--secondary);
+}
+
+.language-mode {
+    position: absolute;
+    top: 0;
+    right: 5%;
+    width: auto;
+    background-color: transparent;
+    border: none;
+}
+
+@media screen and (max-width: 800px) {
+    .menu-btn {
+        display: block;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        color: #fff;
+        font-size: 3.5rem;
+        z-index: 3;
+    }
+
+    .navbar__links {
+        width: 100%;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: -100%;
+        z-index: 2;
+        transition: all 0.7s ease;
+    }
+
+    .navbar__links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar__links a {
+        padding: 2rem 0;
+    }
+
+    .navbar__links.active {
+        background-color: var(--primary);
+        left: 0;
+        transition: all 0.7s ease;
+    }
+}
+

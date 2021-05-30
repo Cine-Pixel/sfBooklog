@@ -1,0 +1,90 @@
+footer {
+    background-color: var(--primary);
+    padding: 2rem 0;
+    color: #fff;
+}
+footer h1 {
+    font-size: 3rem;
+    text-transform: uppercase;
+}
+.footer-block-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    gap: 3rem;
+}
+
+.footer-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 1.5rem;
+}
+
+.footer-block:nth-child(2) {
+    text-align: center;
+}
+
+.footer-block:last-child {
+    justify-self: end;
+    text-align: end;
+}
+
+.icons-wrapper {
+    font-size: 2rem;
+    display: flex;
+}
+
+.icons-wrapper i {
+    margin-right: 3rem;
+}
+
+.footer-block a {
+    padding: 0.7rem;
+    font-family: "Ubuntu", sans-serif;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+a.footer-button {
+    width: 200px;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: var(--secondary);
+    transition: all 0.5s;
+}
+
+a.footer-button:hover {
+    background-color: var(--primary);
+}
+
+.footer-block p {
+    font-size: 1.2rem;
+}
+
+@media screen and (max-width: 900px) {
+    .footer-block-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-block {
+        align-items: center;
+    }
+    .footer-block:last-child {
+        justify-self: unset;
+    }
+    .icons-wrapper {
+        width: 50%;
+        margin-top: 4rem;
+        justify-content: space-between;
+    }
+    .icons-wrapper i {
+        margin: 0;
+    }
+    .footer-block p {
+        margin-top: 2rem;
+    }
+}

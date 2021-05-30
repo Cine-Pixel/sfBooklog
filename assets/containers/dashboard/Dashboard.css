@@ -1,0 +1,13 @@
+.dashboard-container {
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-list {
+    width: 60%;
+}
+
+.side-info {
+    width: 30%;
+}

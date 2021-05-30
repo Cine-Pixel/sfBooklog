@@ -1,0 +1,158 @@
+.explore-form-wrapper {
+    height: 100px;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0px 5px 10px -10px rgba(0,0,0,0.6);
+}
+
+.search-controller {
+    display: none;
+}
+
+.explore-form {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.explore-form input, .explore-form select, .explore-form button {
+    width: 18%;
+    border: none;
+    border-radius: 5px;
+    padding: 1rem 1rem;
+    font-weight: 600;
+}
+
+.explore-form input, .explore-form select {
+    background-color: var(--background);
+}
+
+.explore-form button {
+    background-color: var(--secondary);
+    color: #fff;
+    cursor: pointer;
+}
+
+.explore-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.explore-list-item {
+    height: 400px;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: #fff;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0px 5px 10px -10px rgba(0,0,0,0.6);
+}
+
+.save-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 3rem;
+    padding: 0.8rem 1.15rem;
+    border-bottom-left-radius: 13px;
+    background-color: #fff;
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.save-btn .fas.fa-bookmark {
+    display: none;
+}
+
+.save-btn:hover .far.fa-bookmark {
+    display: none;
+}
+.save-btn:hover .fas.fa-bookmark {
+    display: inline-block;
+}
+
+.explore-list-item__image {
+    height: 45%;
+}
+
+.explore-list-item__image img {
+   width: 100%;
+   height: 110%;
+   object-fit: cover;
+   border-radius: 5px;
+}
+
+.explore-list-item__info {
+    height: 55%;
+    display: flex;
+    flex-direction: column;
+}
+.explore-list-item__info h3 {
+    max-width: 55%;
+    font-size: 2rem;
+    align-self: flex-start;
+    padding: 1rem 1rem 1rem 0;
+    border-top-right-radius: 5px;
+    background-color: #fff;
+    color: var(--primary);
+}
+.explore-list-item__info p {
+    font-size: 1.3rem;
+}
+
+.explore-list-item__info .type {
+    background-color: var(--primary);
+    margin-top: auto;
+    padding: 0.5rem 1.3rem;
+    border-radius: 20px;
+    align-self: flex-start;
+    color: #fff;
+}
+
+@media screen and (max-width: 800px) {
+    .explore-form-wrapper {
+        height: 40px;
+        padding: 1rem 0;
+        transition: all 0.5s;
+        position: fixed;
+        top: 60px;
+        z-index: 2;
+    }
+    .explore-form {
+        height: 90%;
+        flex-direction: column;
+        display: none;
+        transition: all 0.5s;
+        margin-top: 10px;
+    }
+    .explore-form-wrapper.expanded .explore-form {
+        display: flex;
+    }
+    .expanded {
+        height: 350px;
+    }
+    /* .explore-form-wrapper.expanded .explore-form-wrapper {
+        height: 600px;
+    } */
+    .explore-form input, 
+    .explore-form select,
+    .explore-form button {
+        width: 100%;
+    }
+    .explore-list {
+        grid-template-columns: 1fr;
+        margin-top: 60px;
+    }
+    .search-controller {
+        display: block;
+        margin-left: 5%;
+        width: 90%;
+        background-color: transparent;
+        border: none;
+        font-weight: 600;
+    }
+
+}

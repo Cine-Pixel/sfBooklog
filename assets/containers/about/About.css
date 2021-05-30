@@ -1,0 +1,12 @@
+.section {
+    margin: 4rem 0;
+}
+
+.section h2 {
+    font-size: 2rem;
+}
+
+.section p {
+    font-size: 1.4rem;
+    text-align: left;
+}
