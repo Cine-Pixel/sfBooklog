@@ -47,6 +47,16 @@ class Post
      */
     private $fk_user;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(type="string", length=300, nullable=true)
+     */
+    private $imageUrl;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -132,6 +142,30 @@ class Post
     public function setFkUser(?User $fk_user): self
     {
         $this->fk_user = $fk_user;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(?string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getImageUrl(): ?string
+    {
+        return $this->imageUrl;
+    }
+
+    public function setImageUrl(?string $imageUrl): self
+    {
+        $this->imageUrl = $imageUrl;
 
         return $this;
     }

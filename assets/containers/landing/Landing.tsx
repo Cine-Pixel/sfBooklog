@@ -4,22 +4,22 @@ import "./Landing.css";
 import fetchBooks from "../../api/fetchBooks";
 import { useAuth } from "../../contexts/AuthContext";
 
-const featuredBooks = [
-  {
-    bookTitle: "The Great Gatsby",
-    bookAuthor: "F.Scott Fitzgerald",
-    imageUrl:
-      "http://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781471173936/the-great-gatsby-9781471173936_hr.jpg",
-  },
-];
-
 const Landing = () => {
   const [books, setBooks] = useState([]);
-  const { currentUser } = useAuth();
+  const { currentUser, removeToken } = useAuth();
 
   useEffect(() => {
-    if(currentUser.token === "") return;
-    fetchBooks(currentUser.token).then(response => setBooks(response));
+    if (currentUser.token === "") return;
+    fetchBooks(currentUser.token)
+      .then((response) => {
+        if(!response) {
+          removeToken();
+        }
+        setBooks(response ? response : [])
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
   }, [currentUser.token]);
 
   return (
@@ -36,7 +36,10 @@ const Landing = () => {
                 return (
                   <div key={id} className="custom-card z-depth-1">
                     <div className="img-wrapper">
-                      <img src={featuredBooks[0].imageUrl} alt="Featured book" />
+                      <img
+                        src={book.imageUrl}
+                        alt="Featured book"
+                      />
                     </div>
                     <h4>{book.title}</h4>
                     <p className="image-description">{book.description}</p>

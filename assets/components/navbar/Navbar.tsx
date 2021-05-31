@@ -3,18 +3,20 @@ import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import "./Navbar.css";
 import SignedOutLinks from "./SignedOutLinks";
 import SignedInLinks from "./SignedInLinks";
+import { useAuth } from "../../contexts/AuthContext";
+import UserControls from "./UserControls";
 // import UserControls from "./UserControls";
 
 type Props = RouteComponentProps<any> & {
-  location: { pathname: string }
-}
+  location: { pathname: string };
+};
 
 const Navbar: React.FC<Props> = (props) => {
   const [active, setActive] = useState(false);
   const [navState, setNavState] = useState(false);
+  const { currentUser } = useAuth();
 
   if (props.location.pathname === "/auth") return <></>;
-
 
   const handleNavState = () => {
     if (window.scrollY >= 150 && props.location.pathname === "/")
@@ -42,12 +44,15 @@ const Navbar: React.FC<Props> = (props) => {
         </Link>
 
         <ul className={active ? "navbar__links active" : "navbar__links"}>
-            <SignedInLinks />
-            <SignedOutLinks />
+          {currentUser.token !== "" ? <SignedInLinks /> : <SignedOutLinks />}
           <li>
+            {currentUser.token !== "" ? (
+              <UserControls />
+            ) : (
               <Link className="btn-small z-depth-0" to="/auth">
                 Login
               </Link>
+            )}
           </li>
         </ul>
 

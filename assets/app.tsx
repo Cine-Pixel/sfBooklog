@@ -9,9 +9,13 @@ import Navbar from "./components/navbar/Navbar";
 import Landing from "./containers/landing/Landing";
 import Dashboard from "./containers/dashboard/Dashboard";
 import Explore from "./containers/explore/Explore";
-// import PrivateRoute from "./utils/PrivateRoute";
+import PrivateRoute from "./hoc/PrivateRoute";
+import { useAuth } from "./contexts/AuthContext";
+import CreatePost from "./containers/create/CreatePost";
 
 const App: React.FC = () => {
+  const {currentUser} = useAuth();
+
   return (
     <>
       <Router>
@@ -21,9 +25,9 @@ const App: React.FC = () => {
             <Route path="/" exact>
               <Landing />
             </Route>
-            {/* <PrivateRoute exact path="/dashboard" component={Dashboard} /> */}
-            <Route path="/dashboard" exact component={Dashboard} />
-            <Route path="/explore" exact component={Explore} />
+            <PrivateRoute exact path="/dashboard" token={currentUser.token} component={Dashboard} />
+            <PrivateRoute exact path="/explore" token={currentUser.token} component={Explore} />
+            <PrivateRoute exact path="/create" token={currentUser.token} component={CreatePost} />
             <Route path="/contact">
               <Contact />
             </Route>

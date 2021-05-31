@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Login } from '../api/Auth';
+import { Login, Register } from '../api/Auth';
+import { destroyToken } from '../utils/destroyToken';
 
 type ContextProps = {
     currentUser: any,
-    executeLogin: any
+    executeLogin: any,
+    removeToken: VoidFunction
 }
 
 type StateProps = {
-    token: string
+    token: string 
 }
 
 const AuthContext = React.createContext<Partial<ContextProps>>({});
@@ -17,11 +19,22 @@ export const useAuth = () => {
 }
 
 export const AuthProvider: React.FC = ({children}) => {
-    const [currentUser, setCurrentUser] = useState<StateProps>({token: ""});
+    const [currentUser, setCurrentUser] = useState<StateProps>(() => {
+        return {token: localStorage.getItem("token")}
+    });
 
-    const executeLogin = (email: string, password: string) => {
-        Login(email, password)
+    const executeLogin = async (email: string, password: string) => {
+        await Login(email, password)
         .then(data => setCurrentUser(data));
+    }
+
+    const executeRegister = (username: string, email: string, password: string) => {
+        Register(username, email, password);
+    }
+
+    const removeToken = () => {
+        destroyToken();
+        setCurrentUser({...currentUser, token: ""});
     }
 
     useEffect(() => {
@@ -35,8 +48,11 @@ export const AuthProvider: React.FC = ({children}) => {
 
     const value = {
         currentUser,
-        executeLogin
+        executeLogin,
+        executeRegister,
+        removeToken
     }
+    
     return (
         <AuthContext.Provider value={value}>
            {children} 

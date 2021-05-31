@@ -9,7 +9,7 @@ const Signin = () => {
     lemail: "",
     lpassword: "",
   });
-
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { executeLogin } = useAuth();
 
@@ -20,8 +20,9 @@ const Signin = () => {
     });
   };
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
+    setLoading(true);
     const email = userData.lemail;
     const password = userData.lpassword;
 
@@ -29,7 +30,8 @@ const Signin = () => {
       setError("Invalid Email Address");
       return;
     } else {
-      executeLogin(email, password);
+      setLoading(true);
+      await executeLogin(email, password);
       history.push("/dashboard");
     }
   };
@@ -66,7 +68,7 @@ const Signin = () => {
           onChange={handleChange}
         />
         {/* <Link to="/passwordreset">Forgot your password?</Link> */}
-        <button type="submit">Sign In</button>
+        <button type="submit" disabled={loading}>Sign In</button>
       </form>
     </div>
   );

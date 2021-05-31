@@ -1,13 +1,13 @@
 .dashboard-container {
     padding: 1rem 0;
-    display: flex;
-    justify-content: space-between;
-}
-
-.post-list {
-    width: 60%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
 }
 
 .side-info {
-    width: 30%;
+    height: 100vh;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 60px;
 }

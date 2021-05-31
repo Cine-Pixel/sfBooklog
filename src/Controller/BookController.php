@@ -34,9 +34,8 @@ class BookController extends AbstractController {
     public function listAction(Request $request): Response {
         $books = $this->bookRepository->findAll();
 
-        // return $this->json($books, status: Response::HTTP_OK, headers: [], context: []);
         return $this->json($books, status: Response::HTTP_OK, headers: [], context: [
-            ObjectNormalizer::ATTRIBUTES => ['id', 'title', 'description', 
+            ObjectNormalizer::ATTRIBUTES => ['id', 'title', 'description', 'imageUrl', 
                 'posts' => ['id', 'fkUser' => ['email']],
                 'fkGenre' => ['id', 'title'],
                 'fkAuthor' => ['id', 'fullname']
@@ -69,7 +68,7 @@ class BookController extends AbstractController {
         $book = $this->getDoctrine()->getRepository(Book::class)->findOneBy(['title' => $title]);
 
         return $this->json($book, status: Response::HTTP_OK, headers: [], context: [
-            ObjectNormalizer::ATTRIBUTES => ['id', 'title', 'description', 
+            ObjectNormalizer::ATTRIBUTES => ['id', 'title', 'description', 'imageUrl', 
                 'posts' => ['id', 'fkUser' => ['email']],
                 'fkGenre' => ['id', 'title'],
                 'fkAuthor' => ['id', 'fullname']
@@ -78,7 +77,7 @@ class BookController extends AbstractController {
     }
 
     #[Route('/create', name: 'create', methods: ['POST'])]
-    public function createAction(Request $request, SerializerInterface $serializer): Response {
+    public function createAction(Request $request): Response {
         $params = $request->request->all();
 
         $book = new Book();

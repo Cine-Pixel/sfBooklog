@@ -5,9 +5,6 @@ const SignedOutLinks: React.FC = () => {
   return (
     <>
       <li>
-        <Link to="/explore">Explore</Link>
-      </li>
-      <li>
         <Link to="/contact">Contact</Link>
       </li>
       <li>

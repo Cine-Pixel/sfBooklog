@@ -15,7 +15,7 @@ html {
   font-family: 'Roboto', sans-serif;
 }
 
-#root {
+#app {
   display: flex;
   min-height: 100vh;
   flex-direction: column;

@@ -1,0 +1,16 @@
+.editor {
+    width: 100%;
+    /* height: calc(100vh - 270px); */
+    margin-top: 20px;
+    height: auto;
+    padding: 2rem;
+    background-color: #fff;
+    border: 2px solid #b0cbff;
+    border-radius: 8px;
+}
+
+.toolbar {
+    position: sticky;
+    top: 70px;
+    border-radius: 8px;
+}

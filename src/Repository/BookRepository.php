@@ -22,7 +22,7 @@ class BookRepository extends ServiceEntityRepository
 
     public function getFeaturedBooks() {
         $qb = $this->createQueryBuilder('b')
-            ->select('b.id, b.title, a.fullname')
+            ->select('b.id, b.title, b.imageUrl, a.fullname')
             ->innerJoin('App\Entity\Author', 'a', Expr\Join::WITH, 'b.fk_author = a.id')
             ->setMaxResults(4);
         

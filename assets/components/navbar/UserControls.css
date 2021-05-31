@@ -1,0 +1,36 @@
+.profile {
+    position: relative;
+}
+.profile-dropdown {
+    position: absolute;
+    padding: 0 3rem;
+    right: 0;
+    top: 50px;
+    list-style-type: none;
+    text-align: right;
+    background-color: var(--primary);
+    transition: all 0.5s;
+}
+
+.profile-dropdown li {
+    padding: 1rem 0;
+}
+
+.profile-dropdown li a {
+    padding: 0;
+}
+
+.sign-out {
+    padding: 0.5rem 1rem;
+    background-color: var(--secondary);
+    color: #fff;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.sign-out:hover {
+    background-color: var(--primary);
+}

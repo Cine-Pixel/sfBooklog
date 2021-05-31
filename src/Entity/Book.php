@@ -48,6 +48,11 @@ class Book
      */
     private $fk_author;
 
+    /**
+     * @ORM\Column(type="string", length=300, nullable=true)
+     */
+    private $imageUrl;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -132,6 +137,18 @@ class Book
     public function setFkAuthor(?Author $fk_author): self
     {
         $this->fk_author = $fk_author;
+
+        return $this;
+    }
+
+    public function getImageUrl(): ?string
+    {
+        return $this->imageUrl;
+    }
+
+    public function setImageUrl(?string $imageUrl): self
+    {
+        $this->imageUrl = $imageUrl;
 
         return $this;
     }

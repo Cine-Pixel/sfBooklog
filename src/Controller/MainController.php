@@ -13,7 +13,7 @@ class MainController extends AbstractController
         name: 'main', 
         methods: ['GET'], 
         defaults: ['reactRouting' => null], 
-        requirements: ['reactRouting' => '^(?!api).+']
+        requirements: ['reactRouting' => '^(?!api|uploads).+']
     )]
     public function index(): Response
     {

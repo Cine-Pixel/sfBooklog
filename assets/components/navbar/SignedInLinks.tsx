@@ -7,6 +7,9 @@ const SignedInLinks = () => {
       <li>
         <Link to="/dashboard">Dashboard</Link>
       </li>
+      <li>
+        <Link to="/explore">Explore</Link>
+      </li>
     </>
   );
 };

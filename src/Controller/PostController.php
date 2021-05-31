@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Book;
 use App\Entity\Post;
+use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,10 +37,17 @@ class PostController extends AbstractController
     }
 
     #[Route('/create', name: 'create', methods: ['POST'])]
-    public function createAction(Request $request): Response {
+    public function createAction(Request $request, FileUploader $fileUploader): Response {
         $params = $request->request;
+        $photo = $request->files->get('photo', default: null);
         $content = $params->get('content', default: null);
-        $bookID = $params->get('bookID', default: -1);
+        $title = $params->get('title', default: null);
+        $bookID = (int)$params->get('bookID', default: '-1');
+
+        if($photo) {
+            $photoName = $fileUploader->upload($photo);
+            dump($photoName); die;
+        }
 
         $response = [
             "success" => true,
@@ -65,6 +73,7 @@ class PostController extends AbstractController
         }
 
         $post = new Post();
+        $post->setTitle($title);
         $post->setContent($content);
         $post->setFkBook($book);
         $post->setFkUser($this->getUser());

@@ -12,7 +12,7 @@ const Login = async (email: string, passowrd: string) => {
     return response.json();
 }
 
-const Register = async () => {
+const Register = async (username: string, email: string, password: string) => {
     console.log("heey");
 }
 
