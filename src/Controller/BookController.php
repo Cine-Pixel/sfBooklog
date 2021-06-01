@@ -43,6 +43,15 @@ class BookController extends AbstractController {
         ]);
     }
 
+    #[Route('/short-list', name: 'short-list', methods: ['GET'])]
+    public function shortListAction(Request $request): Response {
+        $books = $this->bookRepository->findAll();
+
+        return $this->json($books, status: Response::HTTP_OK, headers: [], context: [
+            ObjectNormalizer::ATTRIBUTES => ['id', 'title'],
+        ]);
+    }
+
     #[Route('/featured', name: 'featured', methods: ['GET'])]
     public function featuredAction(Request $request): Response {
         $books = $this->bookRepository->getFeaturedBooks();

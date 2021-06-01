@@ -31,7 +31,7 @@ const ExploreSearch: React.FC<PropTypes> = ({filterData, setFilterData, setBook}
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    console.log(filterData)
+
     if(filterData.type === "book") {
       const response = await searchBook(currentUser.token, filterData.keyword);
       setBook(response);

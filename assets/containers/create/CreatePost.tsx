@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
+import { useHistory } from 'react-router';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import EditorConvertToHtml from "./Editor";
-import { useAuth } from '../../contexts/AuthContext';
-import { Redirect, useHistory } from 'react-router';
+
 import submitPost from "../../api/submitPost";
+import BookSelection from './BookSelection';
 
 import "./CreatePost.css";
 
@@ -56,13 +58,7 @@ const CreatePost: React.FC = () => {
                </div>
                <div className="post-controls__row">
                     <h2>Choose or make new book</h2>
-                    <select onChange={handleChange} id="book">
-                        <option value="1">Gatsby</option>
-                        <option value="2">dorian gray</option>
-                        <option value="3">someting</option>
-                        <option value="4">weird</option>
-                    </select>
-                    <input type="text" id="book" onChange={handleChange} value={postData.book} />
+                    <BookSelection handleChange={handleChange} />
                </div>
                <div className="post-controls__row">
                     <h2>Upload Cover image</h2>
