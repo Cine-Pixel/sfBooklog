@@ -3,6 +3,12 @@ export interface UserType {
     username: string
 }
 
+export interface CommentType {
+    id: number,
+    content: string,
+    fkUser: UserType
+}
+
 export interface PostType {
     id: number,
     title: string,
@@ -14,9 +20,5 @@ export interface PostType {
         title: string
     },
     fkUser: UserType,
-    comments: {
-        id: number,
-        content: string
-        fkUser: UserType,
-    }[]
+    comments: CommentType[]
 }

@@ -30,9 +30,9 @@ class CommentController extends AbstractController{
 
     #[Route('/create', name: 'create', methods: ['POST'])]
     public function createAction(Request $request): Response {
-        $params = $request->request;
-        $content = $params->get('content', default: null);
-        $postID = $params->get('postID', default: -1);
+        $params = json_decode($request->getContent(), true);
+        $content = $params['content'];
+        $postID = $params['postID'];
 
         $response = [
             "success" => true,
@@ -74,7 +74,7 @@ class CommentController extends AbstractController{
         $comments = $this->commentRepository->findAllByPostId($postID);
 
         return $this->json($comments , status: Response::HTTP_OK, headers: [], context: [
-            ObjectNormalizer::ATTRIBUTES => ['id', 'content', 'fkPost' => ['id']],
+            ObjectNormalizer::ATTRIBUTES => ['id', 'content', 'fkPost' => ['id'], 'fkUser' => ['id', 'username']],
         ]);
     }
 

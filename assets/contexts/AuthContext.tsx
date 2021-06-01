@@ -3,7 +3,7 @@ import { Login, Register } from '../api/Auth';
 import { destroyToken } from '../utils/destroyToken';
 
 type ContextProps = {
-    currentUser: any,
+    currentUser: {token: string},
     executeLogin: any,
     removeToken: VoidFunction
 }
