@@ -46,9 +46,9 @@ class PostController extends AbstractController
         $bookID = str_replace("\"", "", $bookID)+0;
         
         if($photo) {
-            $photoName = $fileUploader->upload($photo);
+            $photoName = $fileUploader->upload($photo, "post");
         } else {
-            $photoName = '/uploads/default.png';
+            $photoName = '/uploads/posts/default.png';
         }
 
         $response = [

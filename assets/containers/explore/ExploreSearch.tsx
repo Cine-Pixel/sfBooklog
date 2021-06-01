@@ -1,13 +1,26 @@
 import React, { useState } from "react";
+import searchBook from "../../api/searchBook";
+import { useAuth } from "../../contexts/AuthContext";
 
-const ExploreSearch = () => {
-  const [filterData, setFilterData] = useState({
-    keyword: "",
-    category: "",
-    author: "",
-    tag: "",
-  });
+interface PropTypes {
+  filterData: {
+    keyword: string,
+    type: string,
+    author: string,
+    tag: string,
+  }
+  setFilterData: React.Dispatch<React.SetStateAction<{
+    keyword: string;
+    type: string;
+    author: string;
+    tag: string;
+  }>>
+  setBook: any
+}
+
+const ExploreSearch: React.FC<PropTypes> = ({filterData, setFilterData, setBook}) => {
   const [searchExpand, setSearchExpand] = useState(false);
+  const {currentUser} = useAuth();
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement> = (e) => {
     setFilterData({
@@ -16,13 +29,15 @@ const ExploreSearch = () => {
     });
   };
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    console.log(
-      filterData.keyword,
-      filterData.category,
-      filterData.author,
-    );
+    console.log(filterData)
+    if(filterData.type === "book") {
+      const response = await searchBook(currentUser.token, filterData.keyword);
+      setBook(response);
+    } else {
+      // searchPost();
+    }
   };
 
   return (
@@ -49,13 +64,13 @@ const ExploreSearch = () => {
           placeholder="Keyword"
         />
         <select
-          name="category"
-          id="category"
-          value={filterData.category}
+          name="type"
+          id="type"
+          value={filterData.type}
           onChange={handleChange}
         >
-          <option value="romance">Romance</option>
-          <option value="fiction">Fiction</option>
+          <option value="post">Post</option>
+          <option value="book">Book</option>
         </select>
         <input
           id="author"

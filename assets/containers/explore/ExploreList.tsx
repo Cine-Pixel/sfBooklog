@@ -1,10 +1,14 @@
 import React, { useEffect } from "react";
 import ExploreItem from "./ExploreItem";
 
-const ExploreList = () => {
+interface PropTypes {
+  book: any
+}
+
+const ExploreList: React.FC<PropTypes> = ({book}) => {
   return (
     <div className="container explore-list">
-        <p>No Results</p>
+      <ExploreItem book={book} />
     </div>
   );
 };

@@ -34,9 +34,20 @@ class RegistrationController extends AbstractController {
 
     #[Route('/register', name: 'register', methods: ['POST'])]
     public function index(Request $request): Response {
-        $params = $request->request;
-        $email = $params->get("email");
-        $password = $params->get("password");
+        $params = json_decode($request->getContent(), true);
+        $firstname = $params["firstname"];
+        $lastname = $params["lastname"];
+        $email = $params["email"];
+        $password = $params["password"];
+        $password2 = $params["password2"];
+
+        if(empty($email) || empty($firstname) || empty($lastname)) {
+            return $this->json(["success" => false,"message" => "Fiends can not be empty", "status" => Response::HTTP_NOT_ACCEPTABLE]);
+        }
+
+        if($password !== $password2) {
+            return $this->json(["success" => false,"message" => "Passwords don't match", "status" => Response::HTTP_NOT_ACCEPTABLE]);
+        }
 
         $user = $this->userRepository->findOneBy([
             'email' => $email,
@@ -48,7 +59,10 @@ class RegistrationController extends AbstractController {
 
         $user = new User();
         $user->setEmail($email);
+        $user->setFirstname($firstname);
+        $user->setLastname($lastname);
         $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
+        $user->setPicture("/uploads/profile/default.png");
         $user->setRoles(["ROLE_USER"]);
         
         $this->em->persist($user);

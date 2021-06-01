@@ -22,3 +22,19 @@ export interface PostType {
     fkUser: UserType,
     comments: CommentType[]
 }
+
+export interface Post {
+  id: number,
+  content: string,
+  createdAt: string,
+  title: string,
+  imageUrl: string,
+  fkBook: {
+    id: number,
+    title: string
+  },
+  fkUser: {
+    id: number,
+    username: string
+  }
+}

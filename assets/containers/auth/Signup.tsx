@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { validateEmail } from "../../utils/validateEmail";
 import { passwordLevel } from "../../utils/passwordLevel";
-// import { useHistory } from "react-router-dom";
+import register from "../../api/register";
 
 const Signup: React.FC = () => {
   const [error, setError] = useState("");
@@ -12,10 +12,8 @@ const Signup: React.FC = () => {
     email: "",
     password: "",
     passwordConfirm: "",
-    country: "",
-    city: "",
   });
-//   const history = useHistory();
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: { target: { id: any; value: any; }; }) => {
     if (userData.password) setPasswordScore(passwordLevel(userData.password));
@@ -28,6 +26,7 @@ const Signup: React.FC = () => {
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
+    setLoading(true);
 
     const {
       firstName,
@@ -35,8 +34,6 @@ const Signup: React.FC = () => {
       email,
       password,
       passwordConfirm,
-      country,
-      city,
     } = userData;
 
     if (!validateEmail(email)) {
@@ -48,10 +45,9 @@ const Signup: React.FC = () => {
       setError("Passwords don't match");
       return;
     }
-
-    // history.push("/explore");
-
-    console.log("sign up: ", firstName, lastName, email, country, city);
+    const response = await register(firstName, lastName, email, password, passwordConfirm); 
+    setLoading(false);
+    console.log(response);
   };
 
   return (
@@ -99,22 +95,6 @@ const Signup: React.FC = () => {
           value={userData.email}
           onChange={handleChange}
         />
-        <div className="row">
-          <input
-            id="country"
-            type="text"
-            placeholder="country"
-            value={userData.country}
-            onChange={handleChange}
-          />
-          <input
-            id="city"
-            type="text"
-            placeholder="City"
-            value={userData.city}
-            onChange={handleChange}
-          />
-        </div>
         <span>{passwordScore && passwordScore}</span>
         <input
           id="password"
@@ -130,7 +110,7 @@ const Signup: React.FC = () => {
           value={userData.passwordConfirm}
           onChange={handleChange}
         />
-        <button type="submit">Sign Up</button>
+        <button type="submit" disabled={loading}>Sign Up</button>
       </form>
     </div>
   );

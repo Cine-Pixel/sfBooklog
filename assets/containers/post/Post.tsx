@@ -1,22 +1,7 @@
 import React from "react";
 import "./Post.css";
 import { Link } from "react-router-dom";
-
-interface Post {
-  id: number,
-  content: string,
-  createdAt: string,
-  title: string,
-  imageUrl: string,
-  fkBook: {
-    id: number,
-    title: string
-  },
-  fkUser: {
-    id: number,
-    username: string
-  }
-}
+import { Post } from "./Types";
 
 interface Props {
   post: Post

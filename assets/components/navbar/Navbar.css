@@ -37,7 +37,7 @@
 }
 
 .navbar__links a:hover {
-    border-bottom: 2px solid #fff;
+    color: var(--secondary);
 }
 
 .navbar__logo {

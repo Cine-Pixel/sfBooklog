@@ -13,6 +13,7 @@ import PrivateRoute from "./hoc/PrivateRoute";
 import { useAuth } from "./contexts/AuthContext";
 import CreatePost from "./containers/create/CreatePost";
 import PostDetail from "./containers/post/PostDetail";
+import Profile from "./containers/profile/Profile";
 
 const App: React.FC = () => {
   const {currentUser} = useAuth();
@@ -29,15 +30,13 @@ const App: React.FC = () => {
             <PrivateRoute exact path="/dashboard" token={currentUser.token} component={Dashboard} />
             <PrivateRoute exact path="/explore" token={currentUser.token} component={Explore} />
             <PrivateRoute exact path="/create" token={currentUser.token} component={CreatePost} />
+            <PrivateRoute exact path="/profile" token={currentUser.token} component={Profile} />
             <Route path="/postDetail/:postId">
               <PostDetail />
             </Route>
             <Route path="/contact">
               <Contact />
             </Route>
-            {/* <Route path="/profile">
-              <Profile />
-            </Route> */}
             <Route path="/about" exact component={About} />
             <Route path="/auth" exact component={AuthUser} />
           </Switch>

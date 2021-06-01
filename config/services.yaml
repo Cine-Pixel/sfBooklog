@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     post_photo_directory: '%kernel.project_dir%/public/uploads/posts'
+    user_photo_directory: '%kernel.project_dir%/public/uploads/profile'
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -30,6 +31,7 @@ services:
     App\Service\FileUploader:
         arguments: 
             $targetDirectory: '%post_photo_directory%'
+            $userPhotoDirectory: '%user_photo_directory%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

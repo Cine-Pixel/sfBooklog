@@ -76,4 +76,4 @@ const CreatePost: React.FC = () => {
     )
 }
 
-export default CreatePost
+export default CreatePost;

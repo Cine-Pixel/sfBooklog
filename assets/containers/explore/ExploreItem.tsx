@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-const ExploreItem = () => {
+interface PropTypes {
+  book: any
+}
+
+const ExploreItem: React.FC<PropTypes> = ({book}) => {
   const [saveClicked, setSaveClicked] = useState(false);
 
   return (
@@ -16,14 +20,12 @@ const ExploreItem = () => {
         ></i>
       </div>
       <div className="explore-list-item__image">
-        {/* <img src={post.coverImage} alt="list item" /> */}
+        <img src={book.imageUrl} alt="list item" />
       </div>
       <div className="explore-list-item__info">
-        {/* <h3>{post.title}</h3>
-        <p>{post.content}</p> */}
-        <h3>title</h3>
-        <p>content</p>
-        <span className="type">Post</span>
+        <h3>{book.title}</h3>
+        <p>{book.description}</p>
+        <span className="type">Book</span>
       </div>
     </div>
   );
