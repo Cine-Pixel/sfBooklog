@@ -6,6 +6,8 @@ interface Post {
   id: number,
   content: string,
   createdAt: string,
+  title: string,
+  imageUrl: string,
   fkBook: {
     id: number,
     title: string
@@ -23,10 +25,10 @@ interface Props {
 const Post: React.FC<Props> = ({post}) => {
   return (
     <div className="card-container">
-      <img src="" alt="" />
+      <img src={post.imageUrl} alt="" />
       <div className="card-info">
-        <h3>{post.id}</h3>
-        <p>{post.content.substr(0, 100)}...</p>
+        <h3>{post.title}</h3>
+        <p>{post.title}...</p>
         <Link to={`/postdetail/${post.id}`} className="read-more-btn">
           Read More
         </Link>

@@ -14,25 +14,14 @@ const EditorConvertToHTML: React.FC<Props> = ({editorState, setEditorState}) => 
     setEditorState({state});
   };
 
-  const handleFocus = () => {
-    console.log("focus")
-  }
-
   const { state } = editorState;
   return (
-      <>
-      <Editor
-        editorState={state}
-        toolbarClassName="toolbar"
-        editorClassName="editor"
-        onEditorStateChange={onEditorStateChange}
-        onFocus={handleFocus}
-      />
-      {/* <textarea
-        disabled
-        value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-      /> */}
-    </>
+    <Editor
+      editorState={state}
+      toolbarClassName="toolbar"
+      editorClassName="editor"
+      onEditorStateChange={onEditorStateChange}
+    />
   );
 }
 

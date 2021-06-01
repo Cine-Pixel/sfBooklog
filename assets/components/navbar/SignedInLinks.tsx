@@ -5,6 +5,9 @@ const SignedInLinks = () => {
   return (
     <>
       <li>
+        <Link to="/create">Create</Link>
+      </li>
+      <li>
         <Link to="/dashboard">Dashboard</Link>
       </li>
       <li>

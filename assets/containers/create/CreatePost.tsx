@@ -3,12 +3,13 @@ import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import EditorConvertToHtml from "./Editor";
 import { useAuth } from '../../contexts/AuthContext';
-import { Redirect } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import submitPost from "../../api/submitPost";
 
 import "./CreatePost.css";
 
 const CreatePost: React.FC = () => {
+    const history = useHistory();
     const [postData, setPostData] = useState<{title:string, book:string}>({
         title: "",
         book: ""
@@ -30,13 +31,11 @@ const CreatePost: React.FC = () => {
         formdata.append("photo", photo, photo.name);
 
         const response = await submitPost(currentUser.token, formdata);
-        console.log(response);
         setLoading(false);
-        <Redirect to="/dashboard" />
+        history.push("/dashboard");
     }
 
     const handleChange: React.ChangeEventHandler<HTMLSelectElement | HTMLInputElement> = (e) => {
-        console.log(e.target.id);
         setPostData({
             ...postData,
             [e.target.id]: e.target.value

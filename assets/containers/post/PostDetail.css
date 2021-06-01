@@ -1,0 +1,39 @@
+.post-detail-container {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+}
+
+.post-content {
+    padding: 2rem;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.post-info {
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.post-info img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+.post-info h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #377d82;
+}
+
+.post-info p {
+    margin: 1rem 0;
+}
+
+.comments {
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+}

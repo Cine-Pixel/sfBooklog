@@ -29,7 +29,7 @@ class PostController extends AbstractController
         $posts = $this->getDoctrine()->getRepository(Post::class)->findAll();
 
         return $this->json($posts, status: Response::HTTP_OK, headers: [], context: [
-            ObjectNormalizer::ATTRIBUTES => ['id', 'content', 'createdAt', 
+            ObjectNormalizer::ATTRIBUTES => ['id', 'content', 'createdAt', 'imageUrl', 'title', 
                 'fkBook' => ['id', 'title'],
                 'fkUser' => ['id', 'username']
             ],
@@ -42,11 +42,13 @@ class PostController extends AbstractController
         $photo = $request->files->get('photo', default: null);
         $content = $params->get('content', default: null);
         $title = $params->get('title', default: null);
-        $bookID = (int)$params->get('bookID', default: '-1');
-
+        $bookID = $params->get('bookID', default: '-1');
+        $bookID = str_replace("\"", "", $bookID)+0;
+        
         if($photo) {
             $photoName = $fileUploader->upload($photo);
-            dump($photoName); die;
+        } else {
+            $photoName = '/uploads/default.png';
         }
 
         $response = [
@@ -69,19 +71,20 @@ class PostController extends AbstractController
             $response['status'] = Response::HTTP_NOT_FOUND;
             $response['message'] = "Book doesn't exist please create one";
 
-            return $this->json($response, status: Response::HTTP_NO_CONTENT);
+            return $this->json($response, status: Response::HTTP_NO_CONTENT, headers: [], context: []);
         }
 
         $post = new Post();
         $post->setTitle($title);
         $post->setContent($content);
+        $post->setImageUrl($photoName);
         $post->setFkBook($book);
         $post->setFkUser($this->getUser());
 
         $this->em->persist($post);
         $this->em->flush();
 
-        return $this->json($response, status: Response::HTTP_CREATED);
+        return $this->json($response, status: Response::HTTP_CREATED, headers: [], context: []);
     }
 
     #[Route('/show/{id}', name: 'show', methods: ['GET'])]
@@ -102,12 +105,8 @@ class PostController extends AbstractController
             return $this->json($response, status: Response::HTTP_NOT_FOUND);
         }
 
-        // return $this->json($post, status: Response::HTTP_OK, headers: [], context: [
-        //     ObjectNormalizer::IGNORED_ATTRIBUTES => ['posts', 'books', 'fkPost']
-        // ]);
-
         return $this->json($post, status: Response::HTTP_OK, headers: [], context: [
-            ObjectNormalizer::ATTRIBUTES => ['id', 'content', 'createdAt', 
+            ObjectNormalizer::ATTRIBUTES => ['id', 'content', 'createdAt', 'title', 'imageUrl', 
                 'comments' => ['id', 'content', 'fkUser' => ['id', 'username']],
                 'fkBook' => ['id', 'title'],
                 'fkUser' => ['id', 'username']

@@ -6,7 +6,7 @@
 }
 
 .side-info {
-    height: 100vh;
+    align-self: flex-start;
     position: sticky;
     position: -webkit-sticky;
     top: 60px;

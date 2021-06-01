@@ -8,11 +8,8 @@ const PostList = () => {
   const { currentUser } = useAuth();
 
   useEffect(() => {
-    // let isMounted = true;
     if(currentUser.token === "") return;
     fetchPosts(currentUser.token).then(data => setPosts(data));
-
-    // return () => isMounted = false;
   }, [])
 
   return (
