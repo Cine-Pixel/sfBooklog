@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { useAuth } from "../../contexts/AuthContext";
 import Comment from "./Comment";
 import CreateComment from "./CreateComment";
@@ -8,12 +8,14 @@ import { CommentType, PostType } from "./Types";
 
 import "./PostDetail.css";
 import fetchComments from "../../api/fetchComments";
+import removePost from "../../api/removePost";
 
 const PostDetail = () => {
   const [post, setPost] = useState<PostType>();
   const [comments, setComments] = useState<CommentType[]>([]);
   const { postId } = useParams<{ postId: string }>();
-  const { currentUser } = useAuth();
+  const { user, currentUser } = useAuth();
+  const history = useHistory();
 
   const redisplayComments = async () => {
     console.log("rediaplay");
@@ -21,6 +23,12 @@ const PostDetail = () => {
       setComments(comms)
     );
   };
+
+  const handleDelete = async () => {
+    const response = await removePost(currentUser.token, post.id, user.id);
+    if(!response.success) console.log("no success");
+    history.push("/dashboard");
+  }
 
   useEffect(() => {
     FetchPost(currentUser.token, Number(postId)).then((post) => {setPost(post); setComments(post.comments)});
@@ -39,6 +47,14 @@ const PostDetail = () => {
           <h1>{post.title}</h1>
           <p>Created by: {post.fkUser.username}</p>
           <img src={post.imageUrl} />
+          <div className="post-actions">
+            {post.fkUser.id === user.id ? 
+              <>
+                <button onClick={handleDelete} className="post-edit"><i className="fas fa-pen-square"></i></button>
+                <button onClick={handleDelete} className="post-delete"><i className="fas fa-trash"></i></button>
+              </>
+            : <></>}
+          </div>
         </div>
       )}
 
@@ -50,7 +66,7 @@ const PostDetail = () => {
               redisplayComments={redisplayComments}
             />
             {comments && comments.map((comm, idx) => (
-              <Comment key={idx} comment={comm} />
+              <Comment redisplayComments={redisplayComments} key={idx} comment={comm} />
             ))}
           </div>
         )}

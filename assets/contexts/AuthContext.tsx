@@ -5,7 +5,11 @@ import { destroyToken } from '../utils/destroyToken';
 type ContextProps = {
     currentUser: {token: string},
     executeLogin: any,
-    removeToken: VoidFunction
+    removeToken: VoidFunction,
+    user: {
+        id: number,
+        email: string
+    }
 }
 
 type StateProps = {
@@ -22,6 +26,7 @@ export const AuthProvider: React.FC = ({children}) => {
     const [currentUser, setCurrentUser] = useState<StateProps>(() => {
         return {token: localStorage.getItem("token")}
     });
+    const [user, setUser] = useState<{id: number, email: string}>({id:1, email:""});
 
     const executeLogin = async (email: string, password: string) => {
         await Login(email, password)
@@ -40,6 +45,15 @@ export const AuthProvider: React.FC = ({children}) => {
     useEffect(() => {
         if(currentUser.token === "") return;
         localStorage.setItem("token", currentUser.token);
+
+        fetch("/api/user/get-current", {
+            method: "GET",
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `BEARER ${currentUser.token}`
+            }
+        }).then(response => response.json())
+        .then(data => setUser(data));
     }, [currentUser.token]);
 
     useEffect(() => {
@@ -50,7 +64,8 @@ export const AuthProvider: React.FC = ({children}) => {
         currentUser,
         executeLogin,
         executeRegister,
-        removeToken
+        removeToken,
+        user
     }
     
     return (

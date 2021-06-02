@@ -22,6 +22,23 @@ class UserController extends AbstractController
         $this->em = $entityManagerInterface;
     }
 
+    #[Route('/get-current', name: 'get-current', methods: ['GET'])]
+    public function getAction(): Response
+    {
+        $user = $this->getUser();
+        if(!$user) {
+            return $this->json([
+                "success" => false, 
+                "message" => "User not found", 
+                "status" => Response::HTTP_NOT_FOUND
+            ], status: Response::HTTP_NOT_FOUND, headers: [], context: []);
+        }
+
+        return $this->json($user, status: Response::HTTP_OK, headers: [], context:[
+            ObjectNormalizer::ATTRIBUTES => ["id", "email"]
+        ]);
+    }
+
     #[Route('/current', name: 'current')]
     public function showAction(): Response
     {

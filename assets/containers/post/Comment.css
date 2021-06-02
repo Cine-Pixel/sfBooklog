@@ -1,6 +1,16 @@
 .comment {
     margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
 }
 .comment h3 {
     margin: 5px 0;
+}
+.remove-comment {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: red;
+    font-size: 2rem;
+    background-color: transparent;
 }

@@ -149,4 +149,27 @@ class PostController extends AbstractController
 
         return $this->json($response, status: Response::HTTP_CREATED);
     }
+
+    #[Route('/remove', name: 'remove', methods: ['POST'])]
+    public function removeAction(Request $request): Response {
+        $params = json_decode($request->getContent(), true);
+        $postID= $params['postID'];
+        $userID = $params['userID'];
+        $post = $this->em->getRepository(Post::class)->find($postID);
+
+        $response = ["success" => true,"status" => Response::HTTP_OK,"message" => "Comment Removed"];
+
+        if(!$post) {
+            $response['success'] = false;
+            $response['status'] = Response::HTTP_NOT_FOUND;
+            $response['message'] = "Comment not found";
+
+            return $this->json($response, status: Response::HTTP_NOT_FOUND);
+        }
+
+        $this->em->remove($post);
+        $this->em->flush();
+
+        return $this->json($response, status: Response::HTTP_OK);
+    }
 }

@@ -80,13 +80,15 @@ class CommentController extends AbstractController{
 
     #[Route('/remove', name: 'remove', methods: ['POST'])]
     public function removeAction(Request $request): Response {
-        $id = $request->request->get('commentId');
-        $comment = $this->em->getRepository(Comment::class)->find($id);
+        $params = json_decode($request->getContent(), true);
+        $commentID = $params['commentID'];
+        $userID = $params['userID'];
+        $comment = $this->em->getRepository(Comment::class)->find($commentID);
 
         $response = [
             "success" => true,
             "status" => Response::HTTP_OK,
-            "message" => "Comment Created"
+            "message" => "Comment Removed"
         ];
 
         if(!$comment) {
